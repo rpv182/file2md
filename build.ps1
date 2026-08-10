@@ -31,6 +31,7 @@ py -m PyInstaller `
   --hidden-import markdownify `
   --hidden-import bs4 `
   --hidden-import lxml `
+  --hidden-import i18n `
   app.py
 
 $exe = Join-Path $PSScriptRoot "dist\file2md.exe"
