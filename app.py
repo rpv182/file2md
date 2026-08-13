@@ -98,15 +98,21 @@ class DocMarkdownApp(tk.Tk):
         self.geometry(f"+{x}+{y}")
 
     def _build_menu(self) -> None:
-        self.menubar = tk.Menu(self)
+        self.menubar = tk.Menu(self, tearoff=0)
         self.help_menu = tk.Menu(self.menubar, tearoff=0)
-        self.help_menu.add_command(label="Donate", command=self._open_paypal)
-        self.help_menu.add_separator()
-        self.help_menu.add_command(label="How", command=self._show_how_it_works)
-        self.help_menu.add_command(label="Credits", command=self._show_credits)
-        self.help_menu.add_command(label="About", command=self._show_about)
-        self.menubar.add_cascade(label="Help", menu=self.help_menu)
+        self._fill_menus()
         self.config(menu=self.menubar)
+
+    def _fill_menus(self) -> None:
+        lang = self.lang
+        self.help_menu.delete(0, "end")
+        self.help_menu.add_command(label=t(lang, "donate_menu"), command=self._open_paypal)
+        self.help_menu.add_separator()
+        self.help_menu.add_command(label=t(lang, "how_menu"), command=self._show_how_it_works)
+        self.help_menu.add_command(label=t(lang, "credits_menu"), command=self._show_credits)
+        self.help_menu.add_command(label=t(lang, "about_menu"), command=self._show_about)
+        self.menubar.delete(0, "end")
+        self.menubar.add_cascade(label=t(lang, "help"), menu=self.help_menu)
 
     def _build_ui(self) -> None:
         pad = {"padx": 16, "pady": 8}
@@ -212,12 +218,7 @@ class DocMarkdownApp(tk.Tk):
         self.convert_btn.configure(text=t(lang, "convert"))
         self._widgets["clear_btn"].configure(text=t(lang, "clear"))
         self._widgets["donate_btn"].configure(text=t(lang, "donate"))
-
-        self.help_menu.entryconfigure(0, label=t(lang, "donate_menu"))
-        self.help_menu.entryconfigure(2, label=t(lang, "how_menu"))
-        self.help_menu.entryconfigure(3, label=t(lang, "credits_menu"))
-        self.help_menu.entryconfigure(4, label=t(lang, "about_menu"))
-        self.menubar.entryconfigure(0, label=t(lang, "help"))
+        self._fill_menus()
 
         if not self._busy:
             current = self.status_var.get().strip()

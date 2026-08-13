@@ -7,7 +7,7 @@ from typing import Any
 APP_NAME = "file2md"
 APP_AUTHOR_BRAND = "K3D Technology"
 APP_AUTHOR_NAME = "Ricardo Pena"
-APP_VERSION = "2.3"
+APP_VERSION = "2.3.1"
 PAYPAL_URL = "https://www.paypal.com/paypalme/RicardoVasquez329"
 
 DEFAULT_LANG = "en"
